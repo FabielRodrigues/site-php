@@ -3,26 +3,18 @@ function pages_get_data ($redirectOnError) {
     $title = filter_input(INPUT_POST, 'title');
     $url = filter_input(INPUT_POST, 'url');
     $body = filter_input(INPUT_POST, 'body');
-    if (is_null($title) or is_null($url)) {
-        flash('Informe os campos de título e url', 'error');
+    if (!$title) {
+        flash('Informe o campo de título', 'error');
         header('location: ' . $redirectOnError);
         die();
     }
     return compact('title', 'body', 'url');
 }
-
 $pages_all = function () use ($conn) {
-    /**
-     * Listando Registros
-     */
     $result = $conn->query('SELECT * FROM pages');
     return $result->fetch_all(MYSQLI_ASSOC);
 };
-
 $pages_one = function ($id) use ($conn) {
-    /**
-     * Visualizando detalhes do Registro.
-     */
     $sql = 'SELECT * FROM pages WHERE id=?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $id);
@@ -30,11 +22,7 @@ $pages_one = function ($id) use ($conn) {
     $result = $stmt->get_result();
     return $result->fetch_assoc();
 };
-
 $pages_create = function () use ($conn) {
-    /**
-     * Criando pages
-     */
     $data = pages_get_data('/admin/pages/create');
     $sql = 'INSERT INTO pages (title, body, url, updated, created) VALUES (?, ?, ?, NOW(), NOW())';
     $stmt = $conn->prepare($sql);
@@ -42,11 +30,7 @@ $pages_create = function () use ($conn) {
     flash('Criou registro com sucesso', 'success');
     return $stmt->execute();
 };
-
 $pages_edit = function ($id) use ($conn) {
-    /**
-     * Editando dados pages
-     */
     $data = pages_get_data('/admin/pages/' . $id . '/edit');
     $sql = 'UPDATE pages SET title=?, body=?, url=?, updated=NOW() WHERE id=?';
     $stmt = $conn->prepare($sql);
@@ -54,11 +38,7 @@ $pages_edit = function ($id) use ($conn) {
     flash('Atualizou registro com sucesso', 'success');
     return $stmt->execute();
 };
-
 $pages_delete = function ($id) use ($conn) {
-    /**
-     * Deletando dados pages
-     */
     $sql = 'DELETE FROM pages WHERE id=?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $id);
