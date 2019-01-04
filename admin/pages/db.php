@@ -12,6 +12,9 @@ function pages_get_data ($redirectOnError) {
 }
 
 $pages_all = function () use ($conn) {
+    /**
+     * Listando Registros
+     */
     $result = $conn->query('SELECT * FROM pages');
     return $result->fetch_all(MYSQLI_ASSOC);
 };
@@ -26,6 +29,9 @@ $pages_one = function ($id) use ($conn) {
 };
 
 $pages_create = function () use ($conn) {
+    /**
+     * Criando pages
+     */
     $data = pages_get_data('/admin/pages/create');
     $sql = 'INSERT INTO pages (title, body, url, updated, created) VALUES (?, ?, ?, NOW(), NOW())';
     $stmt = $conn->prepare($sql);
