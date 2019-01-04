@@ -44,6 +44,9 @@ $pages_create = function () use ($conn) {
 };
 
 $pages_edit = function ($id) use ($conn) {
+    /**
+     * Editando dados
+     */
     $data = pages_get_data('/admin/pages/' . $id . '/edit');
     $sql = 'UPDATE pages SET title=?, body=?, url=?, updated=NOW() WHERE id=?';
     $stmt = $conn->prepare($sql);
