@@ -1,4 +1,5 @@
 <?php
+
 function users_get_data ($redirectOnError) {
     $email = filter_input(INPUT_POST, 'email');
     $password = filter_input(INPUT_POST, 'password');
@@ -9,10 +10,12 @@ function users_get_data ($redirectOnError) {
     }
     return compact('email', 'password');
 }
+
 $users_all = function () use ($conn) {
     $result = $conn->query('SELECT * FROM users');
     return $result->fetch_all(MYSQLI_ASSOC);
 };
+
 $users_view = function ($id) use ($conn) {
     $stmt = $conn->prepare('SELECT * FROM users WHERE id=?');
     $stmt->bind_param('i', $id);
@@ -20,6 +23,7 @@ $users_view = function ($id) use ($conn) {
     $result = $stmt->get_result();
     return $result->fetch_assoc();
 };
+
 $users_create = function () use ($conn) {
     $data = users_get_data('/admin/users/create');
     $sql = 'insert into users (email, password, updated, created) VALUES (?, ?, NOW(), NOW())';
@@ -34,6 +38,7 @@ $users_create = function () use ($conn) {
     flash('Salvo com sucesso', 'success');
     return $stmt->execute();
 };
+
 $users_edit = function ($id) use ($conn) {
     $data = users_get_data('/admin/users/' . $id . '/edit');
     $sql = 'UPDATE users set email=?, updated=NOW(), created=NOW() WHERE id=?';
@@ -50,6 +55,7 @@ $users_edit = function ($id) use ($conn) {
     flash('Salvo com sucesso', 'success');
     return $stmt->execute();
 };
+
 $users_delete = function ($id) use ($conn) {
     $sql = 'DELETE FROM users WHERE id=?';
     $stmt = $conn->prepare($sql);

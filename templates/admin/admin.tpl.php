@@ -11,14 +11,14 @@
     <link rel="stylesheet" href="/resources/pnotify/pnotify.custom.min.css">
     <link rel="stylesheet" href="/css/style.css">
 
-    <title>Painel Administrativo da School of Net!</title>
+    <title>Painel Administrativo da Fabiel Rodrigues!</title>
   </head>
   <body class="d-flex flex-column">
     <div id="header">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a href="" class="navbar-brand">AdminSON</a>
+            <a href="" class="navbar-brand">AdminFR</a>
             <span class="navbar-text">
-                Painel Administrativo da School of Net
+                Painel Administrativo da Fabiel Rodrigues
             </span>
         </nav>
     </div>
