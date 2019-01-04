@@ -45,7 +45,7 @@ $pages_create = function () use ($conn) {
 
 $pages_edit = function ($id) use ($conn) {
     /**
-     * Editando dados
+     * Editando dados pages
      */
     $data = pages_get_data('/admin/pages/' . $id . '/edit');
     $sql = 'UPDATE pages SET title=?, body=?, url=?, updated=NOW() WHERE id=?';
@@ -56,6 +56,9 @@ $pages_edit = function ($id) use ($conn) {
 };
 
 $pages_delete = function ($id) use ($conn) {
+    /**
+     * Deletando dados pages
+     */
     $sql = 'DELETE FROM pages WHERE id=?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $id);
