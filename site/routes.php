@@ -11,7 +11,7 @@ if (resolve('/contato')) {
             'Reply-To: ' . $from . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
 
-        if (mail('erik@schoolofnet.com', $subject, $message, $headers)) {
+        if (mail(EMAIL_CONTATO, $subject, $message, $headers)) {
             flash('Email enviado com sucesso', 'success');
         } else {
             flash('Algo deu errado e o email não foi enviado, tente usar o telefone', 'error');
